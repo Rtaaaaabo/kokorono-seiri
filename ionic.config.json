@@ -1,0 +1,7 @@
+{
+  "name": "kokorono-seiri",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
