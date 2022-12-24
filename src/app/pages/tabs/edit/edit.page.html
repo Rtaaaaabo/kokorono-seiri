@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> 気持ちの整理 </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div id="container">
+    <strong>{{todayDate}}</strong>
+    <div class="box">
+      <ion-textarea
+        class="ion-text-left"
+        [(ngModel)]="text"
+        [autofocus]="true"
+        placeholder="不安を記載してみよう"
+        rows="10"
+      >
+      </ion-textarea>
+    </div>
+    <div class="block-button">
+      <ion-button (click)="onSave()" expand="block">保存</ion-button>
+    </div>
+  </div>
+</ion-content>

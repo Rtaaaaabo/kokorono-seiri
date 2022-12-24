@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>2022</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" scrollEvents="true">
+  <ion-slides [options]="opts">
+    <ion-slide *ngFor="let month of months">
+      <ion-chip (click)="onClickMonthChip(month)">
+        <ion-label>{{month}}月</ion-label>
+      </ion-chip>
+    </ion-slide>
+  </ion-slides>
+  <ion-list>
+    <ng-container *ngFor="let item of expressiveList">
+      <ion-card (click)="onClickNavigateModal(item)" class="card_item">
+        <ion-card-header>
+          <ion-card-title>{{item.date}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="card_content">{{item.content}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </ion-list>
+  <app-modal-desc-content
+    [(isOpen)]="isOpen"
+    [modalData]="modalData"
+  ></app-modal-desc-content>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-modal [isOpen]="isOpen">
+  <ng-template>
+    <ion-header collapse="fade" [translucent]="true">
+      <ion-toolbar>
+        <ion-title>{{ modalData.date }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="onClickCancel()"> 閉じる </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ modalData.content }}
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ modalData.content }}
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+  </ng-template>
+</ion-modal>
