@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { isPlatform } from '@ionic/angular';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor() {
+    if (!isPlatform('capacitor')) {
+      GoogleAuth.initialize()
+    }
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  signIn(): void {
+    from(GoogleAuth.signIn()).subscribe(data => console.log(data))
   }
 
 }
