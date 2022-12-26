@@ -23,4 +23,8 @@ export class LoginPage implements OnInit {
     from(GoogleAuth.signIn()).subscribe(data => console.log(data))
   }
 
+  signOut(): void {
+    from(GoogleAuth.signOut()).subscribe(data => console.log(data));
+  }
+
 }
