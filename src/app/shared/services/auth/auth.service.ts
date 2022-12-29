@@ -1,8 +1,6 @@
-import { Injectable, Optional } from '@angular/core';
-import { signInWithEmailAndPassword, signOut, UserCredential, User, GoogleAuthProvider } from 'firebase/auth';
-// import { Auth } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
+import { GoogleAuthProvider } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { authState } from 'rxfire/auth'
 import { from, Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +13,10 @@ export class AuthService {
 
   public googleAuth(): Observable<any> {
     return from(this.authLogin(new GoogleAuthProvider));
+  }
+
+  public authLogout(): Observable<any> {
+    return from(this.afAuth.signOut());
   }
 
   public stateAuth(): Observable<any> {

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { isPlatform } from '@ionic/angular';
-import { from } from 'rxjs';
+import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
-import { AuthGuardService } from '../../shared/services/auth-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -15,24 +12,16 @@ export class LoginPage {
   userInfo: any;
 
   constructor(
-    private authGuardService: AuthGuardService,
+    private router: Router,
     private authService: AuthService,
   ) {
-    if (!isPlatform('capacitor')) {
-      // GoogleAuth.initialize()
-    }
   }
 
 
   signIn(): void {
-    this.authService.googleAuth().subscribe((data) => {
-      console.log(data);
-    })
-    this.authGuardService.login();
-  }
-
-  signOut(): void {
-    // this.authGuardService.logout();
+    this.authService.googleAuth().subscribe(() => {
+      this.router.navigateByUrl('');
+    });
   }
 
 }
