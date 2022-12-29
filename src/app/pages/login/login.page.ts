@@ -2,29 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { isPlatform } from '@ionic/angular';
 import { from } from 'rxjs';
+import { AuthService } from '../../shared/services/auth/auth.service';
+import { AuthGuardService } from '../../shared/services/auth-guard.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
-  constructor() {
+  userInfo: any;
+
+  constructor(
+    private authGuardService: AuthGuardService,
+    private authService: AuthService,
+  ) {
     if (!isPlatform('capacitor')) {
-      GoogleAuth.initialize()
+      // GoogleAuth.initialize()
     }
   }
 
-  ngOnInit(): void {
-  }
 
   signIn(): void {
-    from(GoogleAuth.signIn()).subscribe(data => console.log(data))
+    this.authService.googleAuth().subscribe((data) => {
+      console.log(data);
+    })
+    this.authGuardService.login();
   }
 
   signOut(): void {
-    from(GoogleAuth.signOut()).subscribe(data => console.log(data));
+    // this.authGuardService.logout();
   }
 
 }

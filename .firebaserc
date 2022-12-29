@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tasukeai-8f39d": {
+      "hosting": {
+        "app": [
+          "tasukeai-8f39d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tasukeai-8f39d"
+  }
+}
