@@ -19,7 +19,7 @@ export class LoginPage {
 
 
   signIn(): void {
-    this.authService.googleAuth().subscribe(() => {
+    this.authService.googleAuthLogin().subscribe(() => {
       this.router.navigateByUrl('');
     });
   }

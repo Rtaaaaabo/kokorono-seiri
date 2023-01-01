@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 import { from } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { ModalDescContentComponent } from './components/modal-desc-content/modal-desc-content.component';
@@ -32,16 +34,21 @@ export class CalendarPage implements OnInit {
   }
   isOpen = false;
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(
+    private firebaseService: FirebaseService,
+    private authService: AuthService,
+    private modalCtrl: ModalController
+  ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.authService.userId.subscribe(data => console.log('UserId', data));
   }
 
-  onClickMonthChip(month: number): void {
+  public onClickMonthChip(month: number): void {
     console.log(month);
   }
 
-  onClickNavigateModal(data: { date: string, content: string }): void {
+  public onClickNavigateModal(data: { date: string, content: string }): void {
     this.modalData = data;
     this.isOpen = true;
   }

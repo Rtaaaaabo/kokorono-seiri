@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,6 +18,7 @@ export class EditPage {
     public datePipe: DatePipe,
     public router: Router,
     private authService: AuthService,
+    private firebaseService: FirebaseService,
     private toastCtrl: ToastController,
   ) { }
 
@@ -24,20 +26,21 @@ export class EditPage {
   text: string = '';
 
   public onSave(): void {
+    const createDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
     const toast = from(this.toastCtrl.create({
       message: '保存しました',
       duration: 3000,
       position: 'bottom'
     }));
-    // ここにAPIを追加する
-    toast //ここは非同期でつなげる
+    this.firebaseService.setSuspicious('11111', this.text, createDate)
+      .pipe(concatMap(() => toast))
       .pipe(concatMap((data) => from(data.present())))
       .pipe(map(() => this.text = ''))
       .subscribe();
   }
 
   public signOut(): void {
-    this.authService.authLogout().subscribe(() => {
+    this.authService.googleAuthLogout().subscribe(() => {
       this.router.navigateByUrl('/login');
     });
   }

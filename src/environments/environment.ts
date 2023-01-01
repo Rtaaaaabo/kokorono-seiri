@@ -12,6 +12,7 @@ export const environment = {
     authDomain: 'tasukeai-8f39d.firebaseapp.com',
     messagingSenderId: '168946736362',
     measurementId: 'G-ZHT8NHPYXF',
+    databaseURL: 'https://tasukeai-8f39d-default-rtdb.firebaseio.com/',
   },
   production: false
 };
