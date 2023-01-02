@@ -17,7 +17,7 @@ export class FirebaseService {
     }))
   }
 
-  public getSuspicious(userId: string,): Observable<DataSnapshot> {
+  public getSuspicious(userId: string): Observable<DataSnapshot> {
     const dbRef = ref(getDatabase());
     return from(get(child(dbRef, `users/${userId}`)));
   }

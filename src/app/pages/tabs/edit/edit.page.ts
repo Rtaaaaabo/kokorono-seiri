@@ -32,7 +32,8 @@ export class EditPage {
       duration: 3000,
       position: 'bottom'
     }));
-    this.firebaseService.setSuspicious('11111', this.text, createDate)
+    this.authService.userId
+      .pipe(concatMap((userId) => this.firebaseService.setSuspicious(userId, this.text, createDate)))
       .pipe(concatMap(() => toast))
       .pipe(concatMap((data) => from(data.present())))
       .pipe(map(() => this.text = ''))

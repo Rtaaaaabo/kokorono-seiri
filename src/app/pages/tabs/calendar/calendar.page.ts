@@ -41,7 +41,9 @@ export class CalendarPage implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.authService.userId.subscribe(data => console.log('UserId', data));
+    this.authService.userId
+      .pipe(concatMap((userId) => this.firebaseService.getSuspicious(userId)))
+      .subscribe((data) => console.log('Suspicious', data.val()));
   }
 
   public onClickMonthChip(month: number): void {
