@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { getDatabase, ref, set, get, child, DataSnapshot } from 'firebase/database';
+import { Observable, from, of, bindCallback } from 'rxjs';
+import { Query, getDatabase, ref, set, get, child, DataSnapshot, onValue, push, query, orderByKey, orderByChild } from 'firebase/database';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +11,16 @@ export class FirebaseService {
 
   public setSuspicious(userId: string, message: string, date: string | null): Observable<void> {
     const db = getDatabase();
-    return from(set(ref(db, `users/${userId}`), {
-      message,
-      date,
-    }))
+    const postListRef = ref(db, `users/${userId}`);
+    const newPostRef = push(postListRef);
+    return from(set(newPostRef, { message, date }))
   }
 
-  public getSuspicious(userId: string): Observable<DataSnapshot> {
-    const dbRef = ref(getDatabase());
-    return from(get(child(dbRef, `users/${userId}`)));
+  public getSuspicious(userId: string): Observable<any> {
+    const db = getDatabase();
+    const postRef = ref(db, `users/${userId}`);
+    const orderByCreateDateItems = get(query(postRef));
+    return from(orderByCreateDateItems);
   }
+
 }

@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./modal-desc-content.component.scss'],
 })
 export class ModalDescContentComponent implements OnInit {
-  @Input() modalData!: { date: string, content: string };
+  @Input() modalData!: { key: string, date: string, message: string };
   @Input() isOpen!: boolean;
   @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter();
 

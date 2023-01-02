@@ -3,19 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { from } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map, switchMap } from 'rxjs/operators';
 import { ModalDescContentComponent } from './components/modal-desc-content/modal-desc-content.component';
-
-const ExpressionList: Array<{ date: string, content: string }> = [
-  {
-    date: '2022-12-01',
-    content: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-  },
-  {
-    date: '2022-12-02',
-    content: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-  },
-]
+import { object } from 'rxfire/database';
 
 @Component({
   selector: 'app-calendar',
@@ -25,8 +15,8 @@ const ExpressionList: Array<{ date: string, content: string }> = [
 export class CalendarPage implements OnInit {
 
   months: Array<number> = [1, 2, 3, 4, 5,];
-  expressiveList: Array<{ date: string, content: string }> = ExpressionList;
-  modalData!: { date: string, content: string }
+  expressiveList: Array<{ key: string, date: string, message: string }> = [];
+  modalData!: { key: string, date: string, message: string }
   opts = {
     slidesPerView: 5,
     spaceBetween: 5,
@@ -43,14 +33,18 @@ export class CalendarPage implements OnInit {
   public ngOnInit(): void {
     this.authService.userId
       .pipe(concatMap((userId) => this.firebaseService.getSuspicious(userId)))
-      .subscribe((data) => console.log('Suspicious', data.val()));
+      .subscribe((data) => {
+        this.expressiveList = Object.keys(data.val()).map(dataKey => {
+          return { key: dataKey, ...data.val()[dataKey] }
+        });
+      });
   }
 
   public onClickMonthChip(month: number): void {
     console.log(month);
   }
 
-  public onClickNavigateModal(data: { date: string, content: string }): void {
+  public onClickNavigateModal(data: { key: string, date: string, message: string }): void {
     this.modalData = data;
     this.isOpen = true;
   }
