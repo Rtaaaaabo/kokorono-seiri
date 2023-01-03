@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { from } from 'rxjs';
-import { concatMap, map, switchMap } from 'rxjs/operators';
-import { ModalDescContentComponent } from './components/modal-desc-content/modal-desc-content.component';
-import { object } from 'rxfire/database';
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',

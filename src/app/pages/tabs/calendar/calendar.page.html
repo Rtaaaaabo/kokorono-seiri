@@ -16,7 +16,7 @@
     <ng-container *ngFor="let item of expressiveList">
       <ion-card (click)="onClickNavigateModal(item)" class="card_item">
         <ion-card-header>
-          <ion-card-title>{{item.date}}</ion-card-title>
+          <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <p class="card_content">{{item.message}}</p>
