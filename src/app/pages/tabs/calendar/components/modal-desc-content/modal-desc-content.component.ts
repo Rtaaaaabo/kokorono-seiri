@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Expressive } from '../../../../../shared/models/expressive.model';
 
 @Component({
   selector: 'app-modal-desc-content',
@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./modal-desc-content.component.scss'],
 })
 export class ModalDescContentComponent implements OnInit {
-  @Input() modalData!: { key: string, date: string, message: string };
+  @Input() modalData!: Expressive;
   @Input() isOpen!: boolean;
   @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter();
 

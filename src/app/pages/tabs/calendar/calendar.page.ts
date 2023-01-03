@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Expressive } from '../../../shared/models/expressive.model';
 import { concatMap } from 'rxjs/operators';
 
 @Component({
@@ -11,9 +11,9 @@ import { concatMap } from 'rxjs/operators';
 })
 export class CalendarPage implements OnInit {
 
-  months: Array<number> = [1, 2, 3, 4, 5,];
-  expressiveList: Array<{ key: string, date: string, message: string }> = [];
-  modalData!: { key: string, date: string, message: string }
+  months: Array<number> = [];
+  expressiveList: Array<Expressive> = [];
+  modalData!: Expressive
   opts = {
     slidesPerView: 5,
     spaceBetween: 5,
@@ -24,14 +24,13 @@ export class CalendarPage implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private authService: AuthService,
-    private modalCtrl: ModalController
   ) { }
 
   public ngOnInit(): void {
     this.authService.userId
       .pipe(concatMap((userId) => this.firebaseService.getSuspicious(userId)))
       .subscribe((data) => {
-        this.expressiveList = Object.keys(data.val()).map(dataKey => {
+        this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
           return { key: dataKey, ...data.val()[dataKey] }
         });
       });
@@ -41,7 +40,7 @@ export class CalendarPage implements OnInit {
     console.log(month);
   }
 
-  public onClickNavigateModal(data: { key: string, date: string, message: string }): void {
+  public onClickNavigateModal(data: Expressive): void {
     this.modalData = data;
     this.isOpen = true;
   }
