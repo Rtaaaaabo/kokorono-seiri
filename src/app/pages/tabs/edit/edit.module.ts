@@ -14,9 +14,6 @@ import { HomePageRoutingModule } from './edit-routing.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  providers: [
-    DatePipe,
-  ],
   declarations: [EditPage]
 })
 export class EditPageModule { }

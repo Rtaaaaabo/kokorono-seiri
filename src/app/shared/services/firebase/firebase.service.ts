@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, from, of, bindCallback } from 'rxjs';
-import { Query, getDatabase, ref, set, get, child, DataSnapshot, onValue, push, query, orderByKey, orderByChild } from 'firebase/database';
+import { Observable, from } from 'rxjs';
+import { getDatabase, ref, set, get, push, query } from 'firebase/database';
 
 @Injectable({
   providedIn: 'root'

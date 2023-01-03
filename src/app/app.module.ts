@@ -15,6 +15,8 @@ import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingServ
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +25,7 @@ import { environment } from 'src/environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
