@@ -30,9 +30,13 @@ export class CalendarPage implements OnInit {
     this.authService.userId
       .pipe(concatMap((userId: string) => this.firebaseService.getSuspicious(userId)))
       .subscribe((data) => {
-        this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
-          return { key: dataKey, ...data.val()[dataKey] }
-        });
+        // const yearArray = Object.keys(data.val()).map((item: string) => {
+        //   return { year: item, ...data.val()[item] }
+        // })
+        console.log('Object', data.val());
+        // this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
+        //   return { key: dataKey, ...data.val()[dataKey] }
+        // });
       });
   }
 

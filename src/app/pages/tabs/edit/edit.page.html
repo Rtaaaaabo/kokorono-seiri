@@ -14,6 +14,7 @@
     <strong>{{todayDate}}</strong>
     <div class="box">
       <ion-textarea
+        (ionChange)="changeStatusText($event)"
         class="ion-text-left"
         [(ngModel)]="text"
         [autofocus]="true"
@@ -23,7 +24,9 @@
       </ion-textarea>
     </div>
     <div class="block-button">
-      <ion-button (click)="onSave()" expand="block">保存</ion-button>
+      <ion-button [disabled]="disabledSave" (click)="onSave()" expand="block"
+        >保存</ion-button
+      >
     </div>
   </div>
 </ion-content>
