@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CalendarPageRoutingModule } from './calendar-routing.module';
 
 import { CalendarPage } from './calendar.page';
+import { SharedModule } from '../../../shared/shared.module';
 import { ModalDescContentComponent } from './components/modal-desc-content/modal-desc-content.component';
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ModalDescContentComponent } from './components/modal-desc-content/modal
     CommonModule,
     FormsModule,
     IonicModule,
-    CalendarPageRoutingModule
+    SharedModule,
+    CalendarPageRoutingModule,
   ],
   declarations: [CalendarPage, ModalDescContentComponent]
 })

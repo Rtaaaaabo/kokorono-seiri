@@ -11,6 +11,8 @@ import { concatMap } from 'rxjs/operators';
 })
 export class CalendarPage implements OnInit {
 
+  public years: Array<string> = [];
+  public activeYear: string = '2023-01'
   public months: Array<number> = [];
   public expressiveList: Array<Expressive> = [];
   public modalData!: Expressive
@@ -33,14 +35,20 @@ export class CalendarPage implements OnInit {
         // const yearArray = Object.keys(data.val()).map((item: string) => {
         //   return { year: item, ...data.val()[item] }
         // })
-        console.log('Object', data.val());
+        this.years = Object.keys(data.val())
+        console.log('Years', this.years);
+        // console.log('Object', Object.keys(data.val()['2023']));
         // this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
         //   return { key: dataKey, ...data.val()[dataKey] }
         // });
       });
   }
 
-  public onClickMonthChip(month: number): void {
+  public activeIndex() {
+    console.log('Active Index');
+  }
+
+  public onClickMonthChip(month: string): void {
     console.log(month);
   }
 

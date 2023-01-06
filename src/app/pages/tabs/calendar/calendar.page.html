@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>2022</ion-title>
+    <ion-title>{{activeYear | yearMonthFormat: 'year'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true" scrollEvents="true">
   <ion-slides [options]="opts">
-    <ion-slide *ngFor="let month of months">
+    <ion-slide (getActiveIndex)="activeIndex()" *ngFor="let month of years">
       <ion-chip (click)="onClickMonthChip(month)">
-        <ion-label>{{month}}月</ion-label>
+        <ion-label>{{month | yearMonthFormat: 'month' }}月</ion-label>
       </ion-chip>
     </ion-slide>
   </ion-slides>
