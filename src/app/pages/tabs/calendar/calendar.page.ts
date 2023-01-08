@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { Expressive } from '../../../shared/models/expressive.model';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -11,9 +12,10 @@ import { concatMap } from 'rxjs/operators';
 })
 export class CalendarPage implements OnInit {
 
-  public years: Array<string> = [];
-  public activeYear: string = '2023-01'
-  public months: Array<number> = [];
+
+  public userId: string = '';
+  public arrayYearMonth: Array<string> = [];
+  public activeYearMonth: string | null = '';
   public expressiveList: Array<Expressive> = [];
   public modalData!: Expressive
   public opts = {
@@ -26,21 +28,20 @@ export class CalendarPage implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private authService: AuthService,
+    private datePipe: DatePipe,
   ) { }
 
   public ngOnInit(): void {
+    this.activeYearMonth = this.datePipe.transform(new Date(), 'yyyy-MM');
     this.authService.userId
-      .pipe(concatMap((userId: string) => this.firebaseService.getSuspicious(userId)))
+      .pipe(map((userId: string) => this.userId = userId))
+      .pipe(concatMap(() => this.firebaseService.getArrayYearMonth(this.userId)))
+      .pipe(map((data) => this.arrayYearMonth = Object.keys(data.val())))
+      .pipe(concatMap(() => this.firebaseService.getSuspicious(this.userId, this.activeYearMonth)))
       .subscribe((data) => {
-        // const yearArray = Object.keys(data.val()).map((item: string) => {
-        //   return { year: item, ...data.val()[item] }
-        // })
-        this.years = Object.keys(data.val())
-        console.log('Years', this.years);
-        // console.log('Object', Object.keys(data.val()['2023']));
-        // this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
-        //   return { key: dataKey, ...data.val()[dataKey] }
-        // });
+        this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
+          return { key: dataKey, ...data.val()[dataKey] }
+        });
       });
   }
 
@@ -48,8 +49,14 @@ export class CalendarPage implements OnInit {
     console.log('Active Index');
   }
 
-  public onClickMonthChip(month: string): void {
-    console.log(month);
+  public onClickMonthChip(yearMonth: string): void {
+    this.activeYearMonth = yearMonth;
+    this.firebaseService.getSuspicious(this.userId, this.activeYearMonth)
+      .subscribe((data) => {
+        this.expressiveList = Object.keys(data.val()).map((dataKey: string) => {
+          return { key: dataKey, ...data.val()[dataKey] }
+        });
+      });
   }
 
   public onClickNavigateModal(data: Expressive): void {

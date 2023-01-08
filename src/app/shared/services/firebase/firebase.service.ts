@@ -22,11 +22,18 @@ export class FirebaseService {
     return from(set(newPostRef, { message, date }))
   }
 
-  public getSuspicious(userId: string): Observable<any> {
+  public getArrayYearMonth(userId: string): Observable<any> {
     const db = getDatabase();
     const postRef = ref(db, `users/${userId}`);
     const orderByCreateDateItems = get(query(postRef));
     return from(orderByCreateDateItems);
+  }
+
+  public getSuspicious(userId: string, yearMonth: string | null): Observable<any> {
+    const db = getDatabase();
+    const getRef = ref(db, `users/${userId}/${yearMonth}`);
+    const suspiciousItems = get(query(getRef));
+    return from(suspiciousItems);
   }
 
 }
