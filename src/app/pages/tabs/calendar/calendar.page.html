@@ -10,7 +10,10 @@
       (getActiveIndex)="activeIndex()"
       *ngFor="let month of arrayYearMonth"
     >
-      <ion-chip (click)="onClickMonthChip(month)">
+      <ion-chip
+        [color]="activeYearMonth===month ? 'primary': ''"
+        (click)="onClickMonthChip(month)"
+      >
         <ion-label>{{month | yearMonthFormat: 'month' }}月</ion-label>
       </ion-chip>
     </ion-slide>
