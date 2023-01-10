@@ -52,7 +52,10 @@ export class EditPage {
 
   public changeStatusText(ev: any): void {
     this.disabledSave = true;
-    if (ev.target.value !== '') {
+    const textValue = ev.target.value.split('').filter((char: string) => {
+      return !/^\s/.test(char);
+    }).join('');
+    if (textValue !== '') {
       this.disabledSave = false;
     }
 
