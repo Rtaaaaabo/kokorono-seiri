@@ -18,6 +18,7 @@ export class FirebaseService {
     const month = this.datePipe.transform(date, 'MM')
     const postListRef = ref(db, `users/${userId}/${year}-${month}`);
     const newPostRef = push(postListRef);
+    console.log('Message', message);
     return from(set(newPostRef, { message, date }))
   }
 

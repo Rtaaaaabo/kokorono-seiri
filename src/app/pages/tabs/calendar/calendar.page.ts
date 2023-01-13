@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { FirebaseService } from '../../../shared/services/firebase/firebase.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { Expressive } from '../../../shared/models/expressive.model';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -12,18 +12,19 @@ import { concatMap, map } from 'rxjs/operators';
 })
 export class CalendarPage implements OnInit {
 
-
   public userId: string = '';
   public arrayYearMonth: Array<string> = [];
   public activeYearMonth: string | null = '';
   public expressiveList: Array<Expressive> = [];
-  public modalData!: Expressive
+  public modalData!: Expressive;
   public opts = {
     slidesPerView: 5,
     spaceBetween: 5,
     slidesOffsetBefore: 0
   }
   public isOpen = false;
+  // public colorActiveMonth: string = '';
+
 
   constructor(
     private firebaseService: FirebaseService,
@@ -36,6 +37,7 @@ export class CalendarPage implements OnInit {
     this.authService.userId
       .pipe(map((userId: string) => this.userId = userId))
       .pipe(concatMap(() => this.firebaseService.getArrayYearMonth(this.userId)))
+      .pipe(filter((data) => data.val()))
       .pipe(map((data) => this.arrayYearMonth = Object.keys(data.val())))
       .pipe(concatMap(() => this.firebaseService.getSuspicious(this.userId, this.activeYearMonth)))
       .subscribe((data) => {
@@ -62,6 +64,10 @@ export class CalendarPage implements OnInit {
   public onClickNavigateModal(data: Expressive): void {
     this.modalData = data;
     this.isOpen = true;
+  }
+
+  public colorActiveMonth(month: string): "primary" | "" {
+    return this.activeYearMonth === month ? "primary" : ""
   }
 
 }
