@@ -35,7 +35,7 @@ export class EditPage {
     }));
     this.authService.userId
       .pipe(tap(() => this.disabledSave = true))
-      .pipe(concatMap((userId) => this.firebaseService.setSuspicious(userId, this.text.replace(/\r?\n/g, '\n'), createDate)))
+      .pipe(concatMap((userId) => this.firebaseService.setSuspicious(userId, this.text.replace(/\r?\n/g, '<br />'), createDate)))
       .pipe(concatMap(() => toast))
       .pipe(concatMap((data) => from(data.present())))
       .pipe(map(() => this.text = ''))
