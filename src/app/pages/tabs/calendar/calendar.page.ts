@@ -23,7 +23,6 @@ export class CalendarPage implements OnInit {
     slidesOffsetBefore: 0
   }
   public isOpen = false;
-  // public colorActiveMonth: string = '';
 
 
   constructor(

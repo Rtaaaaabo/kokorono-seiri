@@ -9,6 +9,7 @@ import { CalendarPageRoutingModule } from './calendar-routing.module';
 import { CalendarPage } from './calendar.page';
 import { SharedModule } from '../../../shared/shared.module';
 import { ModalDescContentComponent } from './components/modal-desc-content/modal-desc-content.component';
+import { EmptyArticleComponent } from './components/empty-article/empty-article.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,10 @@ import { ModalDescContentComponent } from './components/modal-desc-content/modal
     SharedModule,
     CalendarPageRoutingModule,
   ],
-  declarations: [CalendarPage, ModalDescContentComponent]
+  declarations: [
+    CalendarPage,
+    ModalDescContentComponent,
+    EmptyArticleComponent
+  ]
 })
 export class CalendarPageModule { }

@@ -18,6 +18,9 @@
       </ion-chip>
     </ion-slide>
   </ion-slides>
+  <ng-container *ngIf="expressiveList.length === 0">
+    <app-empty-article></app-empty-article>
+  </ng-container>
   <ion-list>
     <ng-container *ngFor="let item of expressiveList">
       <ion-card (click)="onClickNavigateModal(item)" class="card_item">
